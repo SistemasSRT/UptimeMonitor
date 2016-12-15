@@ -79,8 +79,8 @@
                     templateOptions: {
                         label: 'Intervalo',
                         sliderOptions: {
-                            floor: 0,
-                            ceil: 15
+                            floor: 1,
+                            ceil: 60
                         }
                     }
                 },
@@ -136,7 +136,7 @@
                 }
 
             ];
-            $scope.monitor.Intervalo = 0;
+            $scope.monitor.Intervalo = 1;
             $scope.monitor.Autenticacion = false;
             $scope.guardar = _guardar;
         }

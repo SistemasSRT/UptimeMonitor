@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+<div class="modal-dialog">
+    <div class="modal-header ng-scope">
+        <h3 class="modal-title" id="modal-title">logs del monitor: {{monitor.Nombre}}</h3>
+    </div>
+    <div class="modal-body ng-scope" id="modal-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>TipoResultado</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="log in logs  | orderBy:'-Fecha'">
+                    <td>{{$index}}</td>
+                    <td>{{log.Fecha}}</td>
+                    <td>
+                        <span ng-hide="log.TipoResultado == 0" class="label label-success">Ok</span>
+                        <span ng-hide="log.TipoResultado == 1" class="label label-danger">Error</span>
+                    </td>
+                    <td>{{log.Resultado}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <div class="modal-footer ng-scope">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

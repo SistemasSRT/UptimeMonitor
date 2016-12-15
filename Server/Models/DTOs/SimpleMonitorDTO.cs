@@ -8,5 +8,6 @@ namespace Server.Models.DTOs
     public class SimpleMonitorDTO : BaseDTO
     {
         public String Nombre { get; set; }
+        public int Estado { get; set; }
     }
 }

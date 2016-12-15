@@ -17,5 +17,9 @@ namespace Server.Controllers
         {
             return View();
         }
+        public ActionResult Monitores()
+        {
+            return View();
+        }
     }
 }

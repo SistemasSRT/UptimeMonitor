@@ -7,11 +7,10 @@
         // Custom modules
 
         // 3rd Party Modules
+         'ui.bootstrap',
         'formly',
         'formlyBootstrap',
         'rzModule'
-
-
     ]);
     angular.module('app').run(function (formlyConfig) {
         // single slider type

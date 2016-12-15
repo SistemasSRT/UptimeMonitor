@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +19,11 @@ namespace Server
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ConfigAutoMapper();
+        }
+        private void ConfigAutoMapper() {
+            Mapper.Initialize(cfg => cfg.CreateMap<Models.DTOs.GuardadoMonitorDTO, Model.Monitor>());
+            //Mapper.Initialize(cfg => cfg.CreateMap<Model.Monitor, Models.DTOs.GuardadoMonitorDTO>());
         }
     }
 }

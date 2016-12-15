@@ -8,10 +8,30 @@
     monitor.$inject = ['$http'];
 
     function monitor($http) {
-        this.guardarAsync = _guardarAsync; 
+        this.guardarAsync = _guardarAsync;
+        this.listarAsync = _listarAsync;
+        this.detenerAsync = _detenerAsync;
+        this.iniciarAsync = _iniciarAsync;
+        this.limpiarAsync = _limpiarAsync;
         
         function _guardarAsync(dto) {
             return $http.post('/api/Monitor', dto);
+        }
+
+        function _listarAsync() {
+            return $http.get('/api/Monitor');
+        }
+
+        function _detenerAsync(OID) {
+            return $http.post('/api/Monitor/' + OID +'/detener');
+        }
+
+        function _limpiarAsync(OID) {
+            return $http.post('/api/Monitor/' + OID + '/limpiar');
+        }
+
+        function _iniciarAsync(OID) {
+            return $http.post('/api/Monitor/' + OID + '/iniciar');
         }
     }
 })();
