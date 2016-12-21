@@ -9,6 +9,6 @@ namespace Server.Models.DTOs
     {
         public Guid Version { get; set; }
 
-        public ulong OID { get; set; }
+        public ulong Id { get; set; }
     }
 }

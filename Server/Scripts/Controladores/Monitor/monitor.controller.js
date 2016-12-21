@@ -5,17 +5,18 @@
         .module('app')
         .controller('monitor', monitor);
 
-    monitor.$inject = ['$scope','monitor']; 
+    monitor.$inject = ['$scope', '$location', 'monitor', 'monitorDTO'];
 
-    function monitor($scope, monitor) {
+    function monitor($scope, $location, monitor, monitorDTO) {
         function _guardar() {
-            monitor.guardarAsync($scope.monitor);
+            monitor.guardarAsync($scope.monitor).then(
+                function () { $location.path('/monitores') });
         }
-        
+
         activate();
 
         function activate() {
-            $scope.monitor = {};
+            $scope.monitor = monitorDTO.data;
             $scope.title = 'monitor';
             $scope.fields = [
                 {
@@ -28,11 +29,11 @@
                         "options": [
                         {
                             "name": "URL",
-                            "valor": "1"
+                            "valor": 1
                         },
                         {
                             "name": "IP",
-                            "valor": "2"
+                            "valor": 2
                         }
                         ]
                     }

@@ -31,8 +31,7 @@
             monitor.limpiarAsync(OID);
         }
 
-        function AbrirModal(resultado, monitor)
-        {
+        function AbrirModal(resultado, monitor) {
             var modalInstance = $uibModal.open({
                 templateUrl: '/Modales/MonitorLog',
                 controller: 'monitorlog',
@@ -40,7 +39,7 @@
                     logs: function () {
                         return resultado;
                     },
-                    monitor: function(){
+                    monitor: function () {
                         return monitor;
                     }
                 }
@@ -54,10 +53,9 @@
         }
 
         function _verLogs(monitor) {
-
-                monitorlog.obtenerMonitorLogPorIDAsync(monitor.OID).then(function (response) {
+            monitorlog.obtenerMonitorLogPorIDAsync(monitor.Id).then(function (response) {
                 AbrirModal(response.data, monitor);
-            }, function () { alert('No se pudo obtener los datos')})
+            }, function () { alert('No se pudo obtener los datos') })
         }
 
         activate();

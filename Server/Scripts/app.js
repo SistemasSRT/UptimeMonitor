@@ -3,7 +3,7 @@
 
     angular.module('app', [
         // Angular modules
-
+        'ngRoute',
         // Custom modules
 
         // 3rd Party Modules
@@ -30,5 +30,40 @@
             wrapper: ['bootstrapLabel', 'bootstrapHasError']
         });
     });
+
+    angular.module('app').config(['$routeProvider', function ($routeProvider) {
+
+        //https://plnkr.co/edit/alfgOPSZHpKs0QTGLDHK
+
+        $routeProvider.when('/monitores', {
+            templateUrl: '/aplicacion/monitores', // /Opciones/Ruta2
+            controller: 'monitores',
+            resolve: {
+                monitores: function (monitor) {
+                    return monitor.listarAsync();
+                }
+            },
+            activetab: 'monitores'
+        }).when('/monitor', {
+            templateUrl: '/aplicacion/monitor', // /Opciones/Ruta2
+            controller: 'monitor', resolve: {
+                monitorDTO: function (monitor) {
+                    //return monitor.getModelAsync(); //OJO: devolver promise!!
+                    return monitor.obtenerAsync(0);  //OJO: devolver promise!!
+                }
+            },
+            activetab: 'monitores'
+        }).when('/monitor/editar/:id', {
+            templateUrl: '/Aplicacion/Monitor',
+            controller: 'monitor',
+            resolve: {
+                monitorDTO: function (monitor, $route) {
+                    return monitor.obtenerAsync($route.current.params.id);  //OJO: devolver promise!!
+                }
+            },
+            activetab: 'monitores'
+        }).otherwise('/monitores');
+
+    }]);
 
 })();

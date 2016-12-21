@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Monitores";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
 <div class="col-md-12 col-sm-12 col-xs-12" ng-controller="monitores">
@@ -58,11 +58,12 @@
                             </td>
                             <td class=" ">{{monitor.Nombre}}</td>
                             <td class=" last">
-                                <a href="/Aplicacion/Monitor/{{monitor.OID}}">Editar</a> | 
-                                <a ng-click="verLogs(monitor)" href="#">Ver Logs</a> | 
-                                <a ng-click="iniciarAsync(monitor.OID)" href="#" ng-if="monitor.Estado == 0">Iniciar</a> | 
-                                <a ng-click="detenerAsync(monitor.OID)" href="#" ng-if="monitor.Estado == 1">Detener</a> | 
-                                <a ng-click="limpiarAsync(monitor.OID)" href="#">Limpiar Logs</a> 
+                                <a href="#/monitor/editar/{{monitor.Id}}">Editar</a> | 
+
+                                <button ng-click="verLogs(monitor)">Ver Logs</button> | 
+                                <a ng-click="iniciarAsync(monitor.Id)" href="#" ng-if="monitor.Estado == 0">Iniciar</a> | 
+                                <a ng-click="detenerAsync(monitor.Id)" href="#" ng-if="monitor.Estado == 1">Detener</a> | 
+                                <a ng-click="limpiarAsync(monitor.Id)" href="#">Limpiar Logs</a> 
                             </td>
                         </tr>
 
