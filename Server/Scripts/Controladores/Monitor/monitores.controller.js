@@ -32,16 +32,14 @@
 
         function _eliminarAsync(OID) {
             if (confirm('¿Desea eliminar el monitor?'))
-            doAction(OID, 'eliminar');
+                doAction(OID, 'eliminar');
         }
 
-        function _refrescar(response)
-        {
+        function _refrescar(response) {
             $scope.lista = response.data;
         }
 
-        function _error()
-        {
+        function _error() {
             console.log('error');
         }
 

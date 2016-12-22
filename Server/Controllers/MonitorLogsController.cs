@@ -121,7 +121,8 @@ namespace Server.Controllers
         {
             return db.MonitorLogs.Where(x => x.Monitor.Id == monitorId)
                 .OrderByDescending(x => x.Fecha)
-                .Skip((pagina + 1) * cantidad).Take(cantidad).ToList();
+                .Skip(pagina * cantidad)
+                .Take(cantidad).ToList();
         }
     }
 }

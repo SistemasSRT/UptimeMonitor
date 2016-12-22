@@ -9,5 +9,6 @@ namespace Server.Models.DTOs
     {
         public String Nombre { get; set; }
         public int Estado { get; set; }
+        public String UltimaEjecucion { get; set; }
     }
 }

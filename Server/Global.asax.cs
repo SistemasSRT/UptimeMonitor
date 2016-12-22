@@ -21,9 +21,15 @@ namespace Server
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ConfigAutoMapper();
         }
-        private void ConfigAutoMapper() {
-            Mapper.Initialize(cfg => cfg.CreateMap<Models.DTOs.GuardadoMonitorDTO, Model.Monitor>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<Model.Monitor, Models.DTOs.GuardadoMonitorDTO>());
+
+        private void ConfigAutoMapper()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Models.DTOs.GuardadoMonitorDTO, Model.Monitor>();
+                cfg.CreateMap<Model.Monitor, Models.DTOs.SimpleMonitorDTO>();
+                cfg.CreateMap<Model.Monitor, Model.Monitor>();
+            });
         }
     }
 }

@@ -23,7 +23,7 @@
         function _obtenerAsync(OID) {
             return $http.get('/api/Monitor/' + OID);
         }
-        
+
         function _listarAsync() {
             return $http.get('/api/Monitor');
         }

@@ -19,12 +19,19 @@ namespace Server.Controllers
         {
             List<SimpleMonitorDTO> listaMonitor = new List<SimpleMonitorDTO>();
 
-            using (Model.Context db = new Model.Context())
+            using (Context db = new Model.Context())
             {
                 var monitores = db.Monitors.ToList();
                 foreach (var mon in monitores)
                 {
-                    listaMonitor.Add(new SimpleMonitorDTO() { Nombre = mon.Nombre, Id = (ulong)mon.Id, Version = mon.Version, Estado = (int)mon.Estado });
+                    var dto = Mapper.Map<SimpleMonitorDTO>(mon);
+
+                    /*var ultimo = db.MonitorLogs.Where(m => m.Monitor.Id == mon.Id).OrderByDescending(m => m.Fecha).ToList().FirstOrDefault();
+
+                    if (ultimo != null)
+                        dto.UltimaEjecucion = string.Format("{0:dd/MM/yyyy HH:mm:ss} - {1}", ultimo.Fecha, ultimo.Resultado);
+                        */
+                    listaMonitor.Add(dto);
                 }
             }
 
@@ -106,18 +113,7 @@ namespace Server.Controllers
                     }
                     else
                     {
-                        monitor.Autenticacion = entidad.Autenticacion;
-                        monitor.Descripcion = entidad.Descripcion;
-                        monitor.Dominio = entidad.Dominio;
-                        monitor.Intervalo = entidad.Intervalo;
-                        monitor.IP = entidad.IP;
-                        monitor.Nombre = entidad.Nombre;
-                        monitor.Password = entidad.Password;
-                        monitor.Puerto = entidad.Puerto;
-                        monitor.Respuesta = entidad.Respuesta;
-                        monitor.Tipo = entidad.Tipo;
-                        monitor.URL = entidad.URL;
-                        monitor.Usuario = entidad.Usuario;
+                        Mapper.Map(entidad, monitor, entidad.GetType(), monitor.GetType());
                     }
 
                     db.SaveChanges();

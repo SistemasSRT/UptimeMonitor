@@ -33,7 +33,7 @@
                             "valor": 1
                         },
                         {
-                            "name": "IP",
+                            "name": "PING",
                             "valor": 2
                         }
                         ]
@@ -50,31 +50,41 @@
                     }
                 },
                 {
-                    key: 'URL', //Condicional al tipo de monitor URL
+                    key: 'URL', 
                     type: 'input',
                     templateOptions: {
                         type: 'url',
                         label: 'URL',
                         placeholder: 'URL Monitor'
+                    },
+                    hideExpression: "model.Tipo == 2",
+                    expressionProperties: {
+                        "templateOptions.required": "model.Tipo == 1"
                     }
+
                 },
                 {
-                    key: 'IP',//Condicional al tipo de monitor IP
+                    key: 'IP',
                     type: 'input',
                     templateOptions: {
                         type: 'text',
-                        label: 'IP',
+                        label: 'IP / Hostname',
                         placeholder: 'IP'
+                    },
+                    hideExpression: "model.Tipo == 1",
+                    expressionProperties: {
+                        "templateOptions.required": "model.Tipo == 2"
                     }
-                },
+                },                
                 {
-                    key: 'Puerto',//Condicional al tipo de monitor IP??? o nuevo tipo
+                    key: 'Respuesta',
                     type: 'input',
                     templateOptions: {
                         type: 'text',
-                        label: 'Puerto',
-                        placeholder: 'Puerto'
-                    }
+                        label: 'Respuesta',
+                        placeholder: 'Respuesta esperada'
+                    },
+                    hideExpression: "model.Tipo == 2"
                 },
                 {
                     key: 'Intervalo',
@@ -109,16 +119,13 @@
                     key: 'Usuario',
                     type: 'input',
                     templateOptions: {
-                        type: 'text',
-                        /*required : function() {
-                            return false;//$scope.monitor.Autenticacion;
-                        },*/
+                        type: 'text',                        
                         label: 'Usuario'
                     },
                     expressionProperties: {
                         "templateOptions.disabled": "!model.Autenticacion",
                         "templateOptions.required": "model.Autenticacion"
-                        
+
                     }
                 },
                 {
@@ -141,13 +148,12 @@
                         label: 'Dominio'
                     },
                     expressionProperties: {
-                        "templateOptions.disabled": "!model.Autenticacion",
-                        "templateOptions.required": "model.Autenticacion"
-
+                        "templateOptions.disabled": "!model.Autenticacion"
                     }
                 }
 
             ];
+            $scope.monitor.Tipo = 2;
             $scope.monitor.Intervalo = 1;
             $scope.monitor.Autenticacion = false;
             $scope.guardar = _guardar;
