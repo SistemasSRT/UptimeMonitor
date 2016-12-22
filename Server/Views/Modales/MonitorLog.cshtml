@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="log in logs  | orderBy:'-Fecha'">
+                <tr ng-repeat="log in logs">
                     <td>{{$index}}</td>
                     <td>{{log.Fecha}}</td>
                     <td>
@@ -24,6 +24,9 @@
                         <span ng-hide="log.TipoResultado == 1" class="label label-danger">Error</span>
                     </td>
                     <td>{{log.Resultado}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button><button class="btn btn-default"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></td>
                 </tr>
             </tbody>
 

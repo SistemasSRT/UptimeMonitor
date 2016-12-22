@@ -16,7 +16,7 @@
         activate();
 
         function activate() {
-            $scope.monitor = monitorDTO.data;
+            $scope.monitor = monitorDTO.data || {};
             $scope.title = 'monitor';
             $scope.fields = [
                 {
@@ -26,6 +26,7 @@
                         "label": "Tipo de Monitor",
                         "valueProp": "valor",
                         "labelProp": "name",
+                        "required": true,
                         "options": [
                         {
                             "name": "URL",
@@ -43,12 +44,13 @@
                     type: 'input',
                     templateOptions: {
                         type: 'text',
+                        required: true,
                         label: 'Nombre',
                         placeholder: 'Nombre Monitor'
                     }
                 },
                 {
-                    key: 'URL',
+                    key: 'URL', //Condicional al tipo de monitor URL
                     type: 'input',
                     templateOptions: {
                         type: 'url',
@@ -57,7 +59,7 @@
                     }
                 },
                 {
-                    key: 'IP',
+                    key: 'IP',//Condicional al tipo de monitor IP
                     type: 'input',
                     templateOptions: {
                         type: 'text',
@@ -66,7 +68,7 @@
                     }
                 },
                 {
-                    key: 'Puerto',
+                    key: 'Puerto',//Condicional al tipo de monitor IP??? o nuevo tipo
                     type: 'input',
                     templateOptions: {
                         type: 'text',
@@ -80,6 +82,7 @@
                     templateOptions: {
                         label: 'Intervalo',
                         sliderOptions: {
+                            required: true,
                             floor: 1,
                             ceil: 60
                         }
@@ -107,10 +110,15 @@
                     type: 'input',
                     templateOptions: {
                         type: 'text',
+                        /*required : function() {
+                            return false;//$scope.monitor.Autenticacion;
+                        },*/
                         label: 'Usuario'
                     },
                     expressionProperties: {
-                        "templateOptions.disabled": "!model.Autenticacion"
+                        "templateOptions.disabled": "!model.Autenticacion",
+                        "templateOptions.required": "model.Autenticacion"
+                        
                     }
                 },
                 {
@@ -121,7 +129,8 @@
                         label: 'Password'
                     },
                     expressionProperties: {
-                        "templateOptions.disabled": "!model.Autenticacion"
+                        "templateOptions.disabled": "!model.Autenticacion",
+                        "templateOptions.required": "model.Autenticacion"
                     }
                 },
                 {
@@ -132,7 +141,9 @@
                         label: 'Dominio'
                     },
                     expressionProperties: {
-                        "templateOptions.disabled": "!model.Autenticacion"
+                        "templateOptions.disabled": "!model.Autenticacion",
+                        "templateOptions.required": "model.Autenticacion"
+
                     }
                 }
 

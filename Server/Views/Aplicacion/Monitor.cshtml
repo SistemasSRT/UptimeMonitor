@@ -30,8 +30,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <formly-form model="monitor" fields="fields">
-                    <button type="submit" class="btn btn-default" ng-click="guardar()">Submit</button>
+                <formly-form model="monitor" form="form" fields="fields">
+                    <button ng-disabled="form.$invalid" type="submit" class="btn btn-default" ng-click="guardar()">Submit</button>
                 </formly-form>
                 <pre>{{monitor | json}}</pre>    
             </div>

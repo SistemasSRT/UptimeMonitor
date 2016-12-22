@@ -5,9 +5,10 @@
         .module('app')
         .controller('monitorlog', monitorlog);
 
-    monitorlog.$inject = ['$scope', '$uibModalInstance', 'logs', 'monitor'];
+    monitorlog.$inject = ['$scope', '$uibModalInstance', 'logs', 'monitor', 'monitorlog'];
 
-    function monitorlog($scope, $uibModalInstance, logs, monitor) {
+    function monitorlog($scope, $uibModalInstance, logs, monitor, monitorlog) {
+        console.log(monitorlog);
         $scope.logs = logs;
         $scope.monitor = monitor;
 

@@ -14,6 +14,7 @@
         this.detenerAsync = _detenerAsync;
         this.iniciarAsync = _iniciarAsync;
         this.limpiarAsync = _limpiarAsync;
+        this.eliminarAsync = _eliminarAsync;
 
         function _guardarAsync(dto) {
             return $http.post('/api/Monitor', dto);
@@ -33,6 +34,10 @@
 
         function _limpiarAsync(OID) {
             return $http.post('/api/Monitor/' + OID + '/limpiar');
+        }
+
+        function _eliminarAsync(OID) {
+            return $http.post('/api/Monitor/' + OID + '/eliminar');
         }
 
         function _iniciarAsync(OID) {

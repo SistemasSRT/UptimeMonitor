@@ -58,12 +58,12 @@
                             </td>
                             <td class=" ">{{monitor.Nombre}}</td>
                             <td class=" last">
-                                <a href="#/monitor/editar/{{monitor.Id}}">Editar</a> | 
-
-                                <button ng-click="verLogs(monitor)">Ver Logs</button> | 
-                                <a ng-click="iniciarAsync(monitor.Id)" href="#" ng-if="monitor.Estado == 0">Iniciar</a> | 
-                                <a ng-click="detenerAsync(monitor.Id)" href="#" ng-if="monitor.Estado == 1">Detener</a> | 
-                                <a ng-click="limpiarAsync(monitor.Id)" href="#">Limpiar Logs</a> 
+                                <a class="btn btn-xs btn-success" href="#/monitor/editar/{{monitor.Id}}">Editar</a>
+                                <button ng-click="verLogs(monitor)" class="btn btn-xs btn-primary">Ver Logs</button> 
+                                <button ng-click="iniciarAsync(monitor.Id)" class="btn btn-xs btn-success" ng-if="monitor.Estado == 0">Iniciar</button> 
+                                <button ng-click="detenerAsync(monitor.Id)" class="btn btn-xs btn-warning" ng-if="monitor.Estado == 1">Detener</button> 
+                                <button ng-click="limpiarAsync(monitor.Id)" class="btn btn-xs btn-warning" >Limpiar Logs</button> 
+                                <button ng-click="eliminarAsync(monitor.Id)" class="btn btn-xs btn-danger">Eliminar</button> 
                             </td>
                         </tr>
 

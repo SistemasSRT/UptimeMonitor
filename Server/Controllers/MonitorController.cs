@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Model;
 
 namespace Server.Controllers
 {
@@ -35,38 +36,57 @@ namespace Server.Controllers
         {
             using (Model.Context db = new Model.Context())
             {
-                return db.Monitors.First(x => x.Id == id);
+                return db.Monitors.FirstOrDefault(x => x.Id == id);
             }
         }
 
-        private void CambiarEstado(int id, Model.EstadoMonitorEnum estado) {
-            using (Model.Context db = new Model.Context())
-            {
-                db.Monitors.First(x => x.Id == id).Estado = estado;
-                db.SaveChanges();
-            }
+        private void CambiarEstado(int id, Model.EstadoMonitorEnum estado, Model.Context db)
+        {
+            db.Monitors.First(x => x.Id == id).Estado = estado;
+            db.SaveChanges();
         }
 
         [Route("api/monitor/{id}/{accion}")]
         [HttpPost]
-        public IHttpActionResult Accion(int id, string accion)
+        public IEnumerable<SimpleMonitorDTO> Accion(int id, string accion)
         {
-            switch (accion)
+            using (Model.Context db = new Model.Context())
             {
-                case "iniciar":
-                    CambiarEstado(id, Model.EstadoMonitorEnum.Iniciado);
-                    break;
-                case "detener":
-                    CambiarEstado(id, Model.EstadoMonitorEnum.Detenido);
-                    break;
-                case "limpiar":
-                    break;
-                default:
-                    return NotFound();
+                switch (accion)
+                {
+                    case "iniciar":
+                        CambiarEstado(id, Model.EstadoMonitorEnum.Iniciado, db);
+                        break;
+                    case "detener":
+                        CambiarEstado(id, Model.EstadoMonitorEnum.Detenido, db);
+                        break;
+                    case "limpiar":
+                        LimpiarLogs(id, db);
+                        return new List<SimpleMonitorDTO>();
+                        break;
+                    case "eliminar":
+                        Eliminar(id, db);
+                        break;
+                    default:
+                        return new List<SimpleMonitorDTO>();
+                }
             }
 
-            return Ok();
+            return Get();
+        }
 
+        private void LimpiarLogs(int id, Context db)
+        {
+            db.MonitorLogs.RemoveRange(db.MonitorLogs.Where(x => x.Monitor.Id == id).ToList());
+            db.SaveChanges();
+        }
+
+        private void Eliminar(int id, Model.Context db)
+        {
+            Hangfire.RecurringJob.RemoveIfExists("tarea_" + id.ToString());
+            db.MonitorLogs.RemoveRange(db.MonitorLogs.Where(x => x.Monitor.Id == id).ToList());
+            db.Monitors.Remove(db.Monitors.First(x => x.Id == id));
+            db.SaveChanges();            
         }
 
         // POST: api/Monitor
@@ -99,7 +119,7 @@ namespace Server.Controllers
                         monitor.URL = entidad.URL;
                         monitor.Usuario = entidad.Usuario;
                     }
-                    
+
                     db.SaveChanges();
                 }
 
