@@ -71,7 +71,7 @@ namespace Server.Models
                 else
                 {
                     monitorLog.TipoResultado = TipoResultado.Error;
-                    monitorLog.Resultado += " - Ip status: " + reply.Status.ToString();
+                    monitorLog.Resultado = reply.Status.ToString();
                 }
 
                 return monitorLog;
