@@ -106,7 +106,7 @@
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <img src="images/img.jpg" alt="">John Doe
-                                    <span class=" fa fa-angle-down"></span>
+                                    <span class="fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li><a href="javascript:;"> Profile</a></li>
@@ -198,7 +198,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
                 </div>
                 <div class="clearfix"></div>
             </footer>
@@ -206,10 +206,10 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="https://colorlib.com/polygon/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="https://colorlib.com/polygon/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+
     <!-- FastClick -->
     <script src="https://colorlib.com/polygon/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -242,10 +242,8 @@
 
     <!-- Custom Theme Scripts -->
     <script src="https://colorlib.com/polygon/build/js/custom.min.js"></script>
-
-    
+        
     <script src="//npmcdn.com/api-check@latest/dist/api-check.js"></script>
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.5.6/angular-route.js"></script>
@@ -256,11 +254,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.1/ui-bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.3.1/ui-bootstrap-tpls.js"></script>
 
-
-
-
-
-
     <script src="~/Scripts/app.js"></script>
     <script src="~/Scripts/Controladores/aplicacion.controller.js"></script>
     <script src="~/Scripts/Controladores/Monitor/monitor.controller.js"></script>
@@ -269,8 +262,6 @@
     <script src="~/Scripts/Servicios/Monitor/monitor.service.js"></script>
     <script src="~/Scripts/Servicios/MonitorLog/monitorlog.service.js"></script>
     
-    
-
     <!-- bootstrap-daterangepicker -->
     <script>
       $(document).ready(function() {
