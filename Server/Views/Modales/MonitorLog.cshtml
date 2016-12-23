@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="log in logs">
-                    <td class="text-right" >{{$index + (10 * pagina) + 1}}</td>
+                    <td class="text-right" >{{$index + (cantidad * pagina) + 1}}</td>
                     <td class="text-center">{{log.Fecha | date:'dd/MM/yyyy HH:mm:ss'}}</td>
                     <td class="text-center">
                         <span ng-hide="log.TipoResultado == 0" class="label label-success"> Correcto </span>
@@ -27,10 +27,10 @@
                 </tr>
                 <tr>
                     <td colspan="4" class="text-right">
-                        <button class="btn btn-default" ng-disabled="pagina==0" ng-click="traerLogsAnteriores()">
+                        <button class="btn btn-default" ng-disabled="pagina == 0 || !habilitarPedidoLog" ng-click="traerLogsAnteriores()">
                             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                         </button>
-                        <button class="btn btn-default" ng-click="traerLogsSiguientes()">
+                        <button class="btn btn-default" ng-disabled="logs.length < cantidad || !habilitarPedidoLog" ng-click="traerLogsSiguientes()">
                             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                         </button>
                     </td>

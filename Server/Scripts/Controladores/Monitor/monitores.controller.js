@@ -7,12 +7,7 @@
 
     monitores.$inject = ['$scope', '$uibModal', 'monitor', 'monitorlog'];
 
-    function monitores($scope, $uibModal, monitor, monitorlog) {
-
-        $scope.title = 'monitores';
-        $scope.lista = [];
-        monitor.listarAsync().then(_refrescar, _error);
-
+    function monitores($scope, $uibModal, monitor, monitorlog) {              
         function doAction(OID, action) {
             monitor[action + 'Async'](OID).then(_refrescar, _error);
         }
@@ -43,14 +38,11 @@
             console.log('error');
         }
 
-        function AbrirModal(resultado, monitor) {
+        function _abrirModal(monitor) {
             var modalInstance = $uibModal.open({
                 templateUrl: '/Modales/MonitorLog',
                 controller: 'monitorlog',
                 resolve: {
-                    logs: function () {
-                        return resultado;
-                    },
                     monitor: function () {
                         return monitor;
                     },
@@ -59,21 +51,18 @@
                     }
                 }
             });
-
-            modalInstance.result.then(function () {
-            }, function () {
-            });
         }
 
         function _verLogs(monitor) {
-            monitorlog.obtenerMonitorLogPorIDAsync(monitor.Id).then(function (response) {
-                AbrirModal(response.data, monitor);
-            }, function () { alert('No se pudo obtener los datos') })
+            _abrirModal(monitor);
         }
 
         activate();
+        monitor.listarAsync().then(_refrescar, _error);
 
         function activate() {
+            $scope.title = 'monitores';
+            $scope.lista = [];
             $scope.iniciarAsync = _iniciarAsync;
             $scope.detenerAsync = _detenerAsync;
             $scope.limpiarAsync = _limpiarAsync;

@@ -5,10 +5,9 @@
         .module('app')
         .controller('monitorlog', monitorlog);
 
-    monitorlog.$inject = ['$scope', '$uibModalInstance', 'logs', 'monitor', 'monitorlog'];
+    monitorlog.$inject = ['$scope', '$uibModalInstance', 'monitor', 'monitorlog'];
 
-    function monitorlog($scope, $uibModalInstance, logs, monitor, monitorlog) {                
-        var cantidad = 10;        
+    function monitorlog($scope, $uibModalInstance, monitor, monitorlog) {
 
         function _ok() {
             $uibModalInstance.close();
@@ -18,32 +17,39 @@
             $uibModalInstance.dismiss();
         }
 
-        function _traerLogs(direccion) {
+        function _traerLogsAsync(direccion) {
+
+            $scope.habilitarPedidoLog = false;
             $scope.pagina = $scope.pagina + direccion;
 
-            monitorlog.obtenerMonitorLogPorIDAsync(monitor.Id, $scope.pagina, cantidad).then(function (response) {
+            return monitorlog.obtenerMonitorLogPorIDAsync(monitor.Id, $scope.pagina, $scope.cantidad).then(function (response) {
                 $scope.logs = response.data;
+                $scope.habilitarPedidoLog = true;
             });
         }
 
         function _traerLogsSiguientes() {
-            _traerLogs(1);
+            _traerLogsAsync(1);
         }
 
         function _traerLogsAnteriores() {
-            _traerLogs(-1);
+            _traerLogsAsync(-1);
         }
 
         function activate() {
-            $scope.logs = logs;
+            $scope.habilitarPedidoLog = true;
+            $scope.logs = []                        
             $scope.monitor = monitor;
             $scope.ok = _ok;
             $scope.cancel = _cancel;
             $scope.pagina = 0;
+            $scope.cantidad = 10;
             $scope.traerLogsSiguientes = _traerLogsSiguientes;
             $scope.traerLogsAnteriores = _traerLogsAnteriores;
-        }        
+        }
 
         activate();
+
+        _traerLogsAsync(0);
     }
 })();

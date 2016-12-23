@@ -117,12 +117,12 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("api/monitorlogs/monitor/{monitorId}/{pagina}/{cantidad}")]
-        public List<MonitorLog> ObtenerListaLogPorMonitor(int monitorId, int pagina, int cantidad)
+        public IHttpActionResult ObtenerListaLogPorMonitor(int monitorId, int pagina, int cantidad)
         {
-            return db.MonitorLogs.Where(x => x.Monitor.Id == monitorId)
+            return Ok(db.MonitorLogs.Where(x => x.Monitor.Id == monitorId)
                 .OrderByDescending(x => x.Fecha)
                 .Skip(pagina * cantidad)
-                .Take(cantidad).ToList();
+                .Take(cantidad).ToList());
         }
     }
 }

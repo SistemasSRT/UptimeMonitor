@@ -37,7 +37,7 @@
         }
 
         function _eliminarAsync(OID) {
-            return $http.post('/api/Monitor/' + OID + '/eliminar');
+            return $http.delete('/api/Monitor/' + OID);
         }
 
         function _iniciarAsync(OID) {

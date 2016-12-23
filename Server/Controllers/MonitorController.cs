@@ -15,7 +15,7 @@ namespace Server.Controllers
     public class MonitorController : ApiController
     {
         // GET: api/Monitor
-        public IEnumerable<SimpleMonitorDTO> Get()
+        public IHttpActionResult Get()
         {
             List<SimpleMonitorDTO> listaMonitor = new List<SimpleMonitorDTO>();
 
@@ -35,7 +35,7 @@ namespace Server.Controllers
                 }
             }
 
-            return listaMonitor;
+            return Ok(listaMonitor);
         }
 
         // GET: api/Monitor/5
@@ -55,7 +55,7 @@ namespace Server.Controllers
 
         [Route("api/monitor/{id}/{accion}")]
         [HttpPost]
-        public IEnumerable<SimpleMonitorDTO> Accion(int id, string accion)
+        public IHttpActionResult Accion(int id, string accion)
         {
             using (Model.Context db = new Model.Context())
             {
@@ -69,13 +69,9 @@ namespace Server.Controllers
                         break;
                     case "limpiar":
                         LimpiarLogs(id, db);
-                        return new List<SimpleMonitorDTO>();
-                        break;
-                    case "eliminar":
-                        Eliminar(id, db);
-                        break;
+                        return Ok(new List<SimpleMonitorDTO>());                                            
                     default:
-                        return new List<SimpleMonitorDTO>();
+                        return NotFound();
                 }
             }
 
@@ -124,6 +120,16 @@ namespace Server.Controllers
                     () => FuncionFactory.EjecutarTarea(entidad.Id),
                     Cron.MinuteInterval(entidad.Intervalo));
             }
+        }
+
+        public IHttpActionResult Delete(int id)
+        {
+            using (Model.Context db = new Model.Context())
+            {
+                Eliminar(id, db);
+            }
+
+            return Get();
         }
     }
 }
