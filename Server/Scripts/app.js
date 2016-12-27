@@ -5,7 +5,7 @@
         // Angular modules
         'ngRoute',
         // Custom modules
-
+        'authorization',
         // 3rd Party Modules
          'ui.bootstrap',
         'formly',
@@ -64,6 +64,9 @@
             activetab: 'monitores'
         }).otherwise('/monitores');
 
+    }])
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push('tokenInterceptor');
     }]);
 
 })();

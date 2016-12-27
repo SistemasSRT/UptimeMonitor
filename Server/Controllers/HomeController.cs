@@ -15,6 +15,11 @@ namespace Server.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
+            ViewBag.Token = Session["token"];
+            if (string.IsNullOrEmpty(ViewBag.Token))
+            {
+                return Redirect("http://localhost:50615/Login/Login");
+            }
 
             return View();
         }

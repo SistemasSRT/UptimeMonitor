@@ -5,9 +5,9 @@
         .module('app')
         .controller('monitores', monitores);
 
-    monitores.$inject = ['$scope', '$uibModal', 'monitor', 'monitorlog'];
+    monitores.$inject = ['$scope', '$uibModal', 'monitor', 'monitorlog', 'authorization'];
 
-    function monitores($scope, $uibModal, monitor, monitorlog) {              
+    function monitores($scope, $uibModal, monitor, monitorlog, authorization) {              
         function doAction(OID, action) {
             monitor[action + 'Async'](OID).then(_refrescar, _error);
         }
@@ -68,6 +68,7 @@
             $scope.limpiarAsync = _limpiarAsync;
             $scope.verLogs = _verLogs;
             $scope.eliminarAsync = _eliminarAsync;
+            console.log(authorization.getToken());
         }
     }
 })();

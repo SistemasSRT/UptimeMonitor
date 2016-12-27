@@ -12,7 +12,7 @@ using Model;
 
 namespace Server.Controllers
 {
-    public class MonitorController : ApiController
+    public class MonitorController : BaseAPIController
     {
         // GET: api/Monitor
         public IHttpActionResult Get()

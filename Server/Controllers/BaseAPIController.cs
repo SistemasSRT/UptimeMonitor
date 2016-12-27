@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace Server.Controllers
 {
+    [Filters.SRTAuthorize()]
     public abstract class BaseAPIController : ApiController
     {
     }

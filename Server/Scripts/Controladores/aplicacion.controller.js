@@ -9,8 +9,11 @@
 
     function aplicacion($scope) {
 
+        
         activate();
 
-        function activate() { }
+        function activate() {
+            
+        }
     }
 })();
