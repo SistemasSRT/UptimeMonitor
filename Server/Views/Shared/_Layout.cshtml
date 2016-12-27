@@ -207,6 +207,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/signalr")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
 
@@ -471,6 +472,7 @@
         });
       });
     </script>
+    @RenderSection("scripts", required: false)
     <!-- /Starrr -->
 </body>
 </html>

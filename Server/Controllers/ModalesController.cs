@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Server.Controllers
 {
-    public class ModalesController : Controller
+    public class ModalesController : BaseMVCController
     {
         public ActionResult MonitorLog()
         {

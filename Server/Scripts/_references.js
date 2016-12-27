@@ -8,6 +8,7 @@
 /// <reference path="controladores/monitorlog/monitorlog.controller.js" />
 /// <reference path="directivas/tokencontainer.directive.js" />
 /// <reference path="interceptores/tokeninterceptor.factory.js" />
+/// <reference path="jquery.signalr-2.2.1.js" />
 /// <reference path="jquery.signalr-2.2.1.min.js" />
 /// <reference path="jquery-2.2.4.js" />
 /// <reference path="jquery-2.2.4.min.js" />

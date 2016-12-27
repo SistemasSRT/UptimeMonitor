@@ -12,7 +12,7 @@ using Model;
 
 namespace Server.Controllers
 {
-    public class MonitorLogsController : ApiController
+    public class MonitorLogsController : BaseAPIController
     {
         private Context db = new Context();
 

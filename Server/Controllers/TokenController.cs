@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Server.Controllers
 {
-    public class TokenController : Controller
+    public class TokenController : BaseMVCController
     {
         // GET: Token
         public ActionResult Index(string token)

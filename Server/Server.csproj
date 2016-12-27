@@ -116,8 +116,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Entity" />
@@ -236,6 +236,7 @@
     <Compile Include="Models\DTOs\SimpleMonitorDTO.cs" />
     <Compile Include="Models\FuncionFactory.cs" />
     <Compile Include="Models\Monitor.cs" />
+    <Compile Include="GraficoHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -319,6 +320,7 @@
     <Content Include="Views\Aplicacion\Monitores.cshtml" />
     <Content Include="Views\Modales\MonitorLog.cshtml" />
     <Content Include="Views\Token\Index.cshtml" />
+    <Content Include="Views\Aplicacion\Grafico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
