@@ -1,3 +1,32 @@
 ﻿@{
     Layout = null;
 }
+
+<span id="spanAuth" ng-controller="authorization"></span>
+<span id="spanLogin" ng-controller="login"></span>
+
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jstorage.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+<script src="~/Scripts/constantes.app.js"></script>
+
+<script src="https://auth.srt.gob.ar/scripts/authorization/authorization.module.js"></script>
+<script src="https://auth.srt.gob.ar/scripts/authorization/authorization.controller.js"></script>
+<script src="https://auth.srt.gob.ar/scripts/authorization/authorization.service.js"></script>
+<script src="https://auth.srt.gob.ar/scripts/authorization/session.service.js"></script>
+
+<script src="~/Scripts/Login/login.app.js"></script>
+<script src="~/Scripts/Login/login.controller.js"></script>
+<script src="~/Scripts/Login/login.service.js"></script>
+<script src="~/Scripts/Login/profile.service.js"></script>
+
+<script>
+    $(document).ready(function () {
+        angular.bootstrap(document.getElementById('spanAuth'), ['authorization']);
+        angular.bootstrap(document.getElementById('spanLogin'), ['login']);
+
+        angular.element($('#spanAuth')).scope().login();
+        angular.element($('#spanLogin')).scope().cargarDatosUsuario();
+    });   
+</script>

@@ -68,7 +68,6 @@
             $scope.limpiarAsync = _limpiarAsync;
             $scope.verLogs = _verLogs;
             $scope.eliminarAsync = _eliminarAsync;
-            console.log(authorization.getToken());
         }
     }
 })();

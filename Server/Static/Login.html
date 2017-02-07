@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>        
+	<meta charset="utf-8" />
+    <meta http-equiv="refresh" content="5; url=https://desarrolloauth.srt.gob.ar:5000/OAuth/Authorize?client_id=9cae8e3f-1961-41f4-92e9-44b9c283474b&redirect_uri=http://localhost:51388/Token&response_type=token" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/Content/bootstrap.css" rel="stylesheet" />   
+</head>
+<body>
+    <form class="form-group">
+        <div class="row">
+            <div class="col-xs-3"></div>              
+            <div class="col-xs-6">
+                <p >
+                    Debe iniciar sesión para continuar.
+                </p>
+                <p >
+                    Si no es automáticamente redirigido en <label id="timeout">5</label> segundos, <a href="https://desarrolloauth.srt.gob.ar:5000/OAuth/Authorize?client_id=9cae8e3f-1961-41f4-92e9-44b9c283474b&redirect_uri=http://localhost:51388/Token&response_type=token">presione aqui</a> para continuar.
+                </p>
+            </div>
+            <div class="col-xs-3"></div>
+        </div>
+    </form>
+</body>
+</html>
+<script src="/Scripts/jquery-2.2.4.min.js"></script>
+<script src="/Scripts/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var contador = 5;
+
+        setInterval(_callback, 1000);
+
+        function _callback() {
+            $('#timeout').text(Math.max(0, (--contador)).toString());
+        }
+    });    
+</script>

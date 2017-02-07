@@ -15,6 +15,11 @@ namespace Model
         public TipoResultado TipoResultado { get; set; }
 
         public String Resultado { get; set; }
+
+        public MonitorLog()
+        {
+            Fecha = DateTime.Now;
+        }
     }
 
     public enum TipoResultado

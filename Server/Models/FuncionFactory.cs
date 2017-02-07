@@ -35,6 +35,7 @@ namespace Server.Models
                 if (_tests.ContainsKey(monitor.Tipo))
                 {
                     var monitorLog = _tests[monitor.Tipo].Ejecutar(monitor);
+                    monitorLog.Monitor = monitor;
                     db.MonitorLogs.Add(monitorLog);
                     db.SaveChanges();
                 }
@@ -45,6 +46,8 @@ namespace Server.Models
         {
             public MonitorLog Ejecutar(Model.Monitor monitor)
             {
+                MonitorLog monitorLog = new MonitorLog();
+                
                 var pingSender = new Ping();
                 PingOptions options = new PingOptions();
 
@@ -56,22 +59,26 @@ namespace Server.Models
                 string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
                 byte[] buffer = Encoding.ASCII.GetBytes(data);
                 int timeout = 120;
-                PingReply reply = pingSender.Send(monitor.IP, timeout, buffer, options);
-
-                MonitorLog monitorLog = new MonitorLog();
-                monitorLog.Fecha = DateTime.Now;
-                monitorLog.Monitor = monitor;
-
-                monitorLog.Resultado = reply.RoundtripTime.ToString() + " ms";
-
-                if (reply.Status == IPStatus.Success)
+                try
                 {
-                    monitorLog.TipoResultado = TipoResultado.Correcto;
+                    PingReply reply = pingSender.Send(monitor.IP, timeout, buffer, options);
+
+                    monitorLog.Resultado = reply.RoundtripTime.ToString() + " ms";
+
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        monitorLog.TipoResultado = TipoResultado.Correcto;
+                    }
+                    else
+                    {
+                        monitorLog.TipoResultado = TipoResultado.Error;
+                        monitorLog.Resultado = reply.Status.ToString();
+                    }
                 }
-                else
+                catch (Exception e)
                 {
                     monitorLog.TipoResultado = TipoResultado.Error;
-                    monitorLog.Resultado = reply.Status.ToString();
+                    monitor.Respuesta = e.Message;
                 }
 
                 return monitorLog;
@@ -82,6 +89,8 @@ namespace Server.Models
         {
             public MonitorLog Ejecutar(Model.Monitor monitor)
             {
+                var monitorLog = new MonitorLog();
+                
                 var client = new RestClient(monitor.URL);
 
                 if (monitor.Autenticacion)
@@ -89,23 +98,28 @@ namespace Server.Models
 
                 var request = new RestRequest(Method.GET);
 
-                var response = client.Execute(request);
-
-                var monitorLog = new MonitorLog();
-                monitorLog.Fecha = DateTime.Now;
-                monitorLog.Monitor = monitor;
-
-                monitorLog.Resultado = (int)response.StatusCode + " - " + response.StatusDescription;
-
-                if (string.IsNullOrEmpty(monitor.Respuesta))
+                try
                 {
-                    monitorLog.TipoResultado = ((int)response.StatusCode >= 200 && (int)response.StatusCode < 300) ? TipoResultado.Correcto : TipoResultado.Error;
+                    var response = client.Execute(request);
+
+                    monitorLog.Resultado = (int)response.StatusCode + " - " + response.StatusDescription;
+
+                    if (string.IsNullOrEmpty(monitor.Respuesta))
+                    {
+                        monitorLog.TipoResultado = ((int)response.StatusCode >= 200 && (int)response.StatusCode < 300) ? TipoResultado.Correcto : TipoResultado.Error;
+                    }
+                    else
+                    {
+                        monitorLog.TipoResultado = (monitor.Respuesta.Equals(response.Content)) ? TipoResultado.Correcto : TipoResultado.Error;
+                        monitorLog.Resultado += " - " + response.Content;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    monitorLog.TipoResultado = (monitor.Respuesta.Equals(response.Content)) ? TipoResultado.Correcto : TipoResultado.Error;
-                    monitorLog.Resultado += " - " + response.Content;
+                    monitorLog.TipoResultado = TipoResultado.Error;
+                    monitor.Respuesta = e.Message;
                 }
+
 
                 return monitorLog;
             }

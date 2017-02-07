@@ -9,10 +9,9 @@ namespace Server.Controllers
     public class TokenController : BaseMVCController
     {
         // GET: Token
-        public ActionResult Index(string token)
-        {
-            Session.Add("token", token);
-            return Redirect("/");
+        public ActionResult Index()
+        {         
+            return View();
         }
     }
 }
